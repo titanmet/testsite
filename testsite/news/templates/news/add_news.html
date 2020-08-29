@@ -13,7 +13,48 @@
 <h1>Добавление новости</h1>
 <form action="{% url 'add_news' %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    {% comment %}
+    {{ form.as_p }} <!--  автоматический рендеринг-->
+    {% endcomment %}
+
+    {% comment %}
+    <!--     рендеринг вручную-->
+    {{ form.non_field.errors }}
+    <div class="form-group">
+        <label for="{{ form.label.id_for_label }}">Название: </label>
+        {{ form.title }}
+        <div CLASS="invalid-feedback">{{ form.title.errors }}</div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.content.id_for_label }}">Текст: </label>
+        {{ form.content }}
+        <div CLASS="invalid-feedback">{{ form.content.errors }}</div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.is_published.id_for_label }}">Опубликовано: </label>
+        {{ form.is_published }}
+        <div CLASS="invalid-feedback">{{ form.is_published.errors }}</div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.category.id_for_label }}">Категория: </label>
+        {{ form.category }}
+        <div CLASS="invalid-feedback">{{ form.category.errors }}</div>
+    </div>
+    {% endcomment %}
+
+<!--    рендеринг полуавтомат )))-->
+    {% for field in form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        <div CLASS="invalid-feedback">{{ field.errors }}</div>
+    </div>
+    {% endfor%}
+
     <button type="submit" class="btn btn-primary btn-block">Добавить новость</button>
 </form>
 
