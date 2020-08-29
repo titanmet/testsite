@@ -14,9 +14,7 @@
 <form action="{% url 'add_news' %}" method="post">
     {% csrf_token %}
 
-    {% comment %}
     {{ form.as_p }} <!--  автоматический рендеринг-->
-    {% endcomment %}
 
     {% comment %}
     <!--     рендеринг вручную-->
@@ -46,6 +44,7 @@
     </div>
     {% endcomment %}
 
+    {% comment %}
 <!--    рендеринг полуавтомат )))-->
     {% for field in form %}
     <div class="form-group">
@@ -54,6 +53,7 @@
         <div CLASS="invalid-feedback">{{ field.errors }}</div>
     </div>
     {% endfor%}
+    {% endcomment %}
 
     <button type="submit" class="btn btn-primary btn-block">Добавить новость</button>
 </form>
